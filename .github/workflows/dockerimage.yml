@@ -30,7 +30,7 @@ jobs:
         continue-on-error: true
 
       - id: buildpush
-        uses: docker/build-push-action@v2.10.0
+        uses: docker/build-push-action@v3.0.0
         name: Build and push image
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
