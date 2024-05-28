@@ -29,4 +29,4 @@ buildmulti: ## build multi arch images
 
 run:
 	@echo "run container"
-	docker compose up
+	docker compose up --build

@@ -1,4 +1,3 @@
-version: "3.5"
 services:
   webnut:
     image: edgd1er/webnut:latest
