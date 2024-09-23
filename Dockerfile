@@ -6,7 +6,7 @@ EXPOSE 6543
 
 WORKDIR /app/
 #hadolint ignore=DL3018
-RUN adduser -D user && apk add --no-cache bash git \
+RUN adduser -D user && apk add --no-cache bash git curl \
     && git clone https://github.com/rshipp/webNUT.git \
     && pip install --no-cache-dir -e webNUT
 
