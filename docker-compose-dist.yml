@@ -9,3 +9,8 @@ services:
       UPS_PASSWORD: "secret"
     ports:
       - "6543:6543"
+    volumes:
+      - config:/config
+
+volumes:
+  config:

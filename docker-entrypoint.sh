@@ -5,13 +5,27 @@ upshost="${UPS_HOST:-127.0.0.1}"
 upsport="${UPS_PORT:-3493}"
 upsuser="${UPS_USER:-monuser}"
 upspassword="${UPS_PASSWORD:-secret}"
+exported_config=/config/config.py
 
-echo "server = '$upshost'" > /app/webNUT/webnut/config.py
-echo "port = '$upsport'" >> /app/webNUT/webnut/config.py
-echo "username = '$upsuser'" >> /app/webNUT/webnut/config.py
-echo "password = '$upspassword'" >> /app/webNUT/webnut/config.py
+if  [[ -L /config/config.py ]]; then
+  rm -f ${exported_config}
+  touch ${exported_config}
+fi
+
+echo "server = '${upshost}'
+port = '${upsport}'
+username = '${upsuser}'
+password = '${upspassword}'" > ${exported_config}
+
+while true; do
+  res="$(curl -m2 -v telnet://${upshost}:${upsport} 2>&1)" || true
+  if [[ $res =~ [Cc]onnected ]]; then
+    break
+    else echo "Waiting, cannot connect to ${UPS_HOST}:${UPS_PORT}"
+  fi
+  sleep 1
+done
 
 cd /app/webNUT/webnut
-echo "Connecting to ${upsuser}@${upshost}:${upsport}"
-
-exec pserve ../production.ini
+echo "Connecting to ${UPS_USER}@${UPS_HOST}:${UPS_PORT}"
+exec pserve /app/webNUT/production.ini

@@ -9,14 +9,17 @@ WORKDIR /app/
 RUN adduser -D user && apk add --no-cache bash git curl \
     && git clone https://github.com/rshipp/webNUT.git \
     && pip install --no-cache-dir -e webNUT \
+    && mkdir /config && touch /config/config.py && chown user:users /config/config.py /config \
     && echo "alias checkhealth='curl -f http://localhost:6543 || exit 1'" >>/home/user/.bashrc \
     && chown user:users /home/user/.bashrc
 
 COPY --chown=user --chmod=555  docker-entrypoint.sh /docker-entrypoint.sh
 
-RUN touch /app/webNUT/webnut/config.py && chown user /app/webNUT/webnut/config.py
+RUN ln -sf /config/config.py /app/webNUT/webnut/config.py
 
-HEALTHCHECK --interval=30s --timeout=10s --retries=5 CMD curl -f http://localhost:6543 || exit 1
+VOLUME /config
+
+HEALTHCHECK --interval=10s --timeout=10s --retries=5 CMD curl -f http://0.0.0.0:6543 2>&1 || exit 1
 
 USER user
 ENTRYPOINT ["/docker-entrypoint.sh"]
