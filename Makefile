@@ -19,7 +19,7 @@ build: ## build image
 	@echo "build image ..."
 	docker compose build
 
-buildnc: ## build image
+buildnc: ## build image without cache
 	@echo "build image ..."
 	docker compose build --no-cache
 
