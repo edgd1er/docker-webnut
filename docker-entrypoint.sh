@@ -21,11 +21,11 @@ while true; do
   res="$(curl -m2 -v telnet://${upshost}:${upsport} 2>&1)" || true
   if [[ $res =~ [Cc]onnected ]]; then
     break
-    else echo "Waiting, cannot connect to ${UPS_HOST}:${UPS_PORT}"
+    else echo "Waiting, cannot connect to ${upshost}:${upsport}"
   fi
   sleep 1
 done
 
 cd /app/webNUT/webnut
-echo "Connecting to ${UPS_USER}@${UPS_HOST}:${UPS_PORT}"
+echo "Connecting to ${upsuser}@${upshost}:${upsport}"
 exec pserve /app/webNUT/production.ini

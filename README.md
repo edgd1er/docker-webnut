@@ -3,7 +3,7 @@
 Difference from [teknologist's](https://github.com/rshipp/webNUT) version:
 - switch to python3-alpine3.20 as base image to reduce image size (900Mb -> 80Mb)
 - added actions to build image and publish to docker hub.
-- add healtch check
+- add health check
 - add volume /config to persist config.
 
 # docker-webNUT
