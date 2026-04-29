@@ -7,6 +7,8 @@ upsuser="${UPS_USER:-monuser}"
 upspassword="${UPS_PASSWORD:-secret}"
 exported_config=/config/config.py
 
+set -x
+
 if  [[ -L /config/config.py ]]; then
   rm -f ${exported_config}
   touch ${exported_config}
@@ -19,7 +21,7 @@ password = '${upspassword}'" > ${exported_config}
 
 while true; do
   res="$(curl -m2 -v telnet://${upshost}:${upsport} 2>&1)" || true
-  if [[ $res =~ [Cc]onnected ]]; then
+  if [[ $res =~ ([Cc]onnected|[eE]stablished) ]]; then
     break
     else echo "Waiting, cannot connect to ${upshost}:${upsport}"
   fi
