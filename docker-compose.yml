@@ -1,0 +1,20 @@
+services:
+  webnut:
+    image: edgd1er/webnut:latest
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    environment:
+      UPS_HOST: "192.168.53.210"
+      UPS_PORT: "3493"
+      UPS_USER: "upsmonitor"
+      UPS_PASSWORD: "power2000"
+    ports:
+      - "6543:6543"
+    volumes:
+      - config:/config
+
+volumes:
+  config:

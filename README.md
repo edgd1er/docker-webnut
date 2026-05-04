@@ -1,12 +1,15 @@
 ![Docker Image CI](https://github.com/edgd1er/docker-webnut/workflows/Docker%20Image%20CI/badge.svg)
 
-Difference from [teknologist's](https://github.com/rshipp/webNUT) version:
-- switch to python3.12-alpine3.23 as base image to reduce image size (900Mb -> 80Mb)
-- added actions to build image and publish to docker hub.
-- add health check
-- add volume /config to persist config.
+[![Clean workflows](https://github.com/edgd1er/docker-webnut/actions/workflows/clean_workflows.yml/badge.svg)](https://github.com/edgd1er/docker-webnut/actions/workflows/clean_workflows.yml)
 
-nut2 has a dependancy telnetlib deprecated.
+Difference from [teknologist's](https://github.com/rshipp/webNUT) version:
+- Base image switched to python:3.13-alpine3.23 to reduce image size (≈900 MB → ≈80 MB).
+- added actions to build image and publish to docker hub.
+- added a health check
+- added a persistent /config volume for configuration.
+
+Nut2 has a deprecated dependency on telnetlib; change the dependency to nut2-notl when building.
+
 ```
 telnetlib — Telnet client
 Deprecated since version 3.11, removed in version 3.13.

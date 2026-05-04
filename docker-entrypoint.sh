@@ -7,8 +7,6 @@ upsuser="${UPS_USER:-monuser}"
 upspassword="${UPS_PASSWORD:-secret}"
 exported_config=/config/config.py
 
-set -x
-
 if  [[ -L /config/config.py ]]; then
   rm -f ${exported_config}
   touch ${exported_config}
